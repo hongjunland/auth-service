@@ -9,7 +9,12 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
 
     @Override
-    public User createUser(User user) {
+    public User createUser(RequestUserCreate requestUserCreate) {
+        User user = User.builder()
+                .email(requestUserCreate.getEmail())
+                .nickname(requestUserCreate.getNickname())
+                .password(requestUserCreate.getPassword())
+                .build();
         return userRepository.save(user);
     }
 }

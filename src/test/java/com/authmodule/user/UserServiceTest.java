@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -39,21 +40,29 @@ public class UserServiceTest {
     void test_createUser() {
         String email = "zxc123@google.com";
         String password = "password@@";
+        String nickname = "hongjunland";
         // Given
-        User newUser = User.builder()
+        User user = User.builder()
                 .id(1L)
                 .email(email)
                 .password(password)
+                .nickname(nickname)
                 .build();
-        when(userRepository.save(any(User.class))).thenReturn(newUser);
+        RequestUserCreate requestUserCreate = RequestUserCreate.builder()
+                .email("zxc123@google.com")
+                .password("password@@")
+                .nickname("hongjunland")
+                .build();
+        when(userRepository.save(any(User.class))).thenReturn(user);
 
-        // When
-        User createdUser = userService.createUser(newUser);
-
+//        // When
+        User createdUser = userService.createUser(requestUserCreate);
+//        User createdUser = userRepository.save(user);
         // Then
-        verify(userRepository).save(newUser);
-        assertEquals(email, createdUser.getEmail());
-        assertEquals(password, createdUser.getPassword());
-    }
+        verify(userRepository).save(user);
 
+        assertThat(user).isEqualTo(createdUser);
+    }
 }
+
+
