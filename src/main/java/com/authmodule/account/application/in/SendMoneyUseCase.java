@@ -1,4 +1,5 @@
 package com.authmodule.account.application.in;
 
-public class SendMoneyUseCase {
+public interface SendMoneyUseCase {
+    boolean sendMoney(SendMoneyCommand command);
 }

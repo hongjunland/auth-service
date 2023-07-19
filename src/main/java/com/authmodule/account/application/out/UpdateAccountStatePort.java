@@ -1,4 +1,5 @@
 package com.authmodule.account.application.out;
-
-public class UpdateAccountStatePort {
+import com.authmodule.account.domain.Account;
+public interface UpdateAccountStatePort {
+    void updateActivities(Account account);
 }
