@@ -14,10 +14,8 @@ class UserPersistenceAdapter implements CreateUserPort {
 
     @Override
     public void createUser(User user) {
-//      이메일 중복검사
         userRepository.findByEmail(user.getEmail())
                 .ifPresent(o -> {throw new UserAlreadyExistsException(ErrorMessage.USER_EMAIL_DUPLICATE.getMessage());});
-//      닉네임 중복검사
         userRepository.findByNickname(user.getEmail())
                 .ifPresent(o -> {throw new UserAlreadyExistsException(ErrorMessage.USER_NICKNAME_DUPLICATE.getMessage());});
 
@@ -26,7 +24,7 @@ class UserPersistenceAdapter implements CreateUserPort {
                 .password(user.getPassword())
                 .nickname(user.getNickname())
                 .build();
-        userRepository.save(userJpaEntity);
 
+        userRepository.save(userJpaEntity);
     }
 }
