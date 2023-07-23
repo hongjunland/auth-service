@@ -1,10 +1,11 @@
 package com.authmodule.common.config;
 
-import com.authmodule.common.util.security.TokenAuthenticationFilter;
-import com.authmodule.user.adapter.out.persistence.TokenProvider;
+import com.authmodule.common.utils.TokenAuthenticationFilter;
+import com.authmodule.common.utils.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -26,8 +27,8 @@ public class WebSecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeHttpRequests((auth) -> auth
-                        .anyRequest()
-                        .authenticated()
+                        .antMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/users").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(new TokenAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
@@ -39,8 +40,6 @@ public class WebSecurityConfig {
                 .antMatchers("/v3/api-docs", "/configuration/ui", "/swagger-resources/**", "/swagger-ui/**",
                         "/configuration/security", "/swagger-ui.html", "/webjars/**", "/swagger/**")
                 .antMatchers("/static/css/**, /static/js/**, *.ico")
-                .antMatchers("/api/v1/auth/login", "/api/v1/auth/signup")
-                .antMatchers("/api/v1/users/**")
                 ;
     }
     @Bean

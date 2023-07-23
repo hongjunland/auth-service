@@ -1,4 +1,4 @@
-package com.authmodule.user.application.port.out;
+package com.authmodule.user.application.port.out.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

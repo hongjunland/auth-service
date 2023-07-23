@@ -1,4 +1,4 @@
-package com.authmodule.user.application.port.in;
+package com.authmodule.user.application.port.in.command;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

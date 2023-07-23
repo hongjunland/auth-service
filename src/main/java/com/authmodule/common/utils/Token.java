@@ -1,4 +1,4 @@
-package com.authmodule.common.util.security;
+package com.authmodule.common.utils;
 
 import lombok.*;
 import java.time.Instant;

@@ -1,15 +1,13 @@
-package com.authmodule.common;
-
+package com.authmodule.common.annotaion;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
-
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface PersistenceAdapter {
+public @interface WebAdapter {
     @AliasFor(annotation = Component.class)
     String value() default "";
 }

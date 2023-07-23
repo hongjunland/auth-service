@@ -1,7 +1,6 @@
-package com.authmodule.common.util.security;
+package com.authmodule.common.utils;
 
-import com.authmodule.user.adapter.out.persistence.TokenProvider;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -14,11 +13,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TokenAuthenticationFilter extends GenericFilterBean {
     private final TokenProvider tokenProvider;
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println("TokenAuthenticationFilter -> doFileter");
         String token = resolveToken((HttpServletRequest) request);
         if(token!=null && tokenProvider.isValidToken(token)){
             Authentication auth = tokenProvider.getAuthentication(token);
@@ -29,6 +29,7 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
     }
 
     private String resolveToken(HttpServletRequest request) {
+        System.out.println("TokenAuthenticationFilter -> resolveToken");
         String bearerToken = request.getHeader("Authorization");
         return StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer") ? bearerToken.substring(7) : null;
     }

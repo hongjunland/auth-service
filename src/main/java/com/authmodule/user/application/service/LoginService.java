@@ -1,15 +1,14 @@
 package com.authmodule.user.application.service;
 
-import com.authmodule.common.UseCase;
+import com.authmodule.common.annotaion.*;
 import com.authmodule.common.exception.ErrorMessage;
 import com.authmodule.common.exception.UserBadCredentialsException;
-import com.authmodule.common.util.security.Token;
-import com.authmodule.common.util.security.UserDetailsImpl;
+import com.authmodule.common.utils.Token;
+import com.authmodule.common.utils.UserDetailsImpl;
 import com.authmodule.user.application.port.in.*;
-import com.authmodule.user.application.port.out.LoginResponse;
-import com.authmodule.user.application.port.out.PasswordEncoderPort;
-import com.authmodule.user.application.port.out.ReadUserPort;
-import com.authmodule.user.application.port.out.TokenGeneratorPort;
+import com.authmodule.user.application.port.in.command.LoginCommand;
+import com.authmodule.user.application.port.out.*;
+import com.authmodule.user.application.port.out.response.LoginResponse;
 import com.authmodule.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,16 +26,14 @@ import java.util.Set;
 @RequiredArgsConstructor
 @UseCase
 @Transactional
-public class LoginService implements LoginUseCase, UserDetailsService {
-//    private final LoginPort loginPort;
-    private final ReadUserPort readUserPort;
+class LoginService implements LoginUseCase, UserDetailsService {
+    private final LoadUserPort loadUserPort;
     private final TokenGeneratorPort tokenGeneratorPort;
     private final PasswordEncoderPort passwordEncoderPort;
     private final AuthenticationManagerBuilder authBuilder;
-
     @Override
     public LoginResponse login(LoginCommand command) {
-        User user = readUserPort.readByEmail(command.getEmail());
+        User user = loadUserPort.loadByEmail(command.getEmail());
 
         Optional.of(passwordEncoderPort.matches(command.getPassword(), user.getPassword()))
                 .filter(matches -> matches)
@@ -56,12 +53,12 @@ public class LoginService implements LoginUseCase, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = readUserPort.readByEmail(username);
+        User user = loadUserPort.loadByEmail(username);
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         return UserDetailsImpl.builder()
-                .username(user.getId().toString())
+                .username(user.getId().getValue().toString())
                 .password(user.getPassword())
                 .authorities(authorities)
                 .build();

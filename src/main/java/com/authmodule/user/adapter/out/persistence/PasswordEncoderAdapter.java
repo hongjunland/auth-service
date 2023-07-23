@@ -1,6 +1,6 @@
 package com.authmodule.user.adapter.out.persistence;
 
-import com.authmodule.common.PersistenceAdapter;
+import com.authmodule.common.annotaion.PersistenceAdapter;
 import com.authmodule.user.application.port.out.PasswordEncoderPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

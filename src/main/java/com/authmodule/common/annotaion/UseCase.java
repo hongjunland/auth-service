@@ -1,4 +1,4 @@
-package com.authmodule.common;
+package com.authmodule.common.annotaion;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;

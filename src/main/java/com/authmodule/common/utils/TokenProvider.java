@@ -1,18 +1,15 @@
-package com.authmodule.user.adapter.out.persistence;
+package com.authmodule.common.utils;
 
-import com.authmodule.common.util.security.Token;
+import com.authmodule.common.utils.Token;
 import com.authmodule.user.application.port.out.TokenGeneratorPort;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +27,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class TokenProvider implements TokenGeneratorPort {
+public class TokenProvider{
     private Key key;
     @Value("${jwt.expiration.access}")
     private Long accessTokenExp;
@@ -41,9 +38,16 @@ public class TokenProvider implements TokenGeneratorPort {
         byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
         this.key = Keys.hmacShaKeyFor(secretByteKey);
     }
+    public Long extractMemberIdFromToken() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication);
+        if (authentication == null || authentication.getName() == null) {
+            throw new RuntimeException("토큰정보가 유효하지 않습니다.");
+        }
+        return Long.parseLong(authentication.getName());
+    }
 
     //    로그인시 발행토큰
-    @Override
     public Token generateToken(Authentication auth){
         return Token.builder()
                 .grantToken("Bearer")

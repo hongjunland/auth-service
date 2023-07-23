@@ -4,9 +4,10 @@ import com.authmodule.user.domain.User;
 
 import java.util.Optional;
 
-public interface ReadUserPort {
-    User readByEmail(String email);
-    User readByNickname(String nickname);
+public interface LoadUserPort {
+    User loadById(Long id);
+    User loadByEmail(String email);
+    User loadByNickname(String nickname);
     boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
 }

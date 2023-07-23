@@ -1,10 +1,9 @@
 package com.authmodule.user.adapter.out.persistence;
 
-import com.authmodule.common.PersistenceAdapter;
+import com.authmodule.common.annotaion.PersistenceAdapter;
 import com.authmodule.common.exception.ErrorMessage;
 import com.authmodule.common.exception.UserAlreadyExistsException;
 import com.authmodule.user.application.port.out.CreateUserPort;
-import com.authmodule.user.application.port.out.CreateUserResponse;
 import com.authmodule.user.domain.User;
 import lombok.RequiredArgsConstructor;
 

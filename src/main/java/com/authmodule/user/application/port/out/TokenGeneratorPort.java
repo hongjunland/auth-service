@@ -1,6 +1,6 @@
 package com.authmodule.user.application.port.out;
 
-import com.authmodule.common.util.security.Token;
+import com.authmodule.common.utils.Token;
 import org.springframework.security.core.Authentication;
 
 public interface TokenGeneratorPort {
