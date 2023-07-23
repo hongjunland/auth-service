@@ -1,5 +1,7 @@
 package com.authmodule.user.application.port.in;
 
+import com.authmodule.user.application.port.out.CreateUserResponse;
+
 public interface CreateUserUseCase {
-    boolean createUser(CreateUserCommand command);
+    CreateUserResponse createUser(CreateUserCommand command);
 }

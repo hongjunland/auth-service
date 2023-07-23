@@ -1,12 +1,18 @@
 package com.authmodule.common.util.security;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
 public class UserDetailsImpl implements UserDetails {
     private String username;
     private String password;

@@ -1,10 +1,16 @@
-package com.authmodule.common.util.security;
+package com.authmodule.user.adapter.out.persistence;
 
+import com.authmodule.common.util.security.Token;
+import com.authmodule.user.application.port.out.TokenGeneratorPort;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -24,18 +30,20 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class TokenProvider {
-    private final Key key;
+public class TokenProvider implements TokenGeneratorPort {
+    private Key key;
     @Value("${jwt.expiration.access}")
     private Long accessTokenExp;
     @Value("${jwt.expiration.refresh}")
     private Long refreshTokenExp;
+
     public TokenProvider(@Value("${jwt.secret}") String secretKey){
         byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
         this.key = Keys.hmacShaKeyFor(secretByteKey);
     }
 
     //    로그인시 발행토큰
+    @Override
     public Token generateToken(Authentication auth){
         return Token.builder()
                 .grantToken("Bearer")
@@ -47,10 +55,9 @@ public class TokenProvider {
 
     //    Access Token 발행
     public String generateAccessToken(Authentication auth){
-        String authorities = getAuthorities(auth);
         return Jwts.builder()
                 .setSubject(auth.getName())
-                .claim("auth", authorities)
+                .claim("auth", getAuthorities(auth))
                 .setExpiration(new Date(System.currentTimeMillis() + accessTokenExp))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
@@ -99,4 +106,6 @@ public class TokenProvider {
     private Claims parseClaims(String accessToken) throws ExpiredJwtException {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
     }
+
+
 }

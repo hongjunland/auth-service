@@ -1,7 +1,7 @@
 package com.authmodule.common.config;
 
 import com.authmodule.common.util.security.TokenAuthenticationFilter;
-import com.authmodule.common.util.security.TokenProvider;
+import com.authmodule.user.adapter.out.persistence.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -5,22 +5,24 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public class CreateUserCommand {
-    @NotNull
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
+    @Email
     private String email;
 
-    @NotNull
+    @NotBlank
     private String password;
 
-    @NotNull
+    @NotBlank
     private String nickname;
 
 }

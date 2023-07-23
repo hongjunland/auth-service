@@ -1,5 +1,6 @@
 package com.authmodule.common.util.security;
 
+import com.authmodule.user.adapter.out.persistence.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
