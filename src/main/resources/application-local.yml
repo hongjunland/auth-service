@@ -18,6 +18,8 @@ spring:
       use-new-id-generator-mappings: true
     show-sql: true
 jwt:
+  granted: Bearer
+  header: Authorization
   secret: asdasd312321312321321e3lk12l3qs;djq2lk4jqwlkejklqw@@ewqke21;l#
   expiration:
     access: 3600000 # 3600 * 1000

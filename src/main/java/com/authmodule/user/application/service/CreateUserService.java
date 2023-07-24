@@ -1,8 +1,9 @@
 package com.authmodule.user.application.service;
 
 import com.authmodule.common.annotaion.UseCase;
-import com.authmodule.user.application.port.in.command.CreateUserCommand;
 import com.authmodule.user.application.port.in.CreateUserUseCase;
+import com.authmodule.user.application.port.in.command.CreateUserCommand;
+import com.authmodule.user.application.port.in.command.UpdateUserCommand;
 import com.authmodule.user.application.port.out.CreateUserPort;
 import com.authmodule.user.application.port.out.response.CreateUserResponse;
 import com.authmodule.user.application.port.out.PasswordEncoderPort;
@@ -23,6 +24,7 @@ class CreateUserService implements CreateUserUseCase {
         User user = User.builder()
                 .email(command.getEmail())
                 .nickname(command.getNickname())
+                .name(command.getName())
                 .password(encoderPort.encode(command.getPassword()))
                 .build();
 
@@ -32,6 +34,7 @@ class CreateUserService implements CreateUserUseCase {
                 .id(createdUser.getId().getValue())
                 .name(createdUser.getNickname())
                 .email(createdUser.getEmail())
+                .name(createdUser.getName())
                 .password(createdUser.getPassword())
                 .nickname(createdUser.getNickname())
                 .build();

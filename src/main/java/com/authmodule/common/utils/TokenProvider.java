@@ -1,7 +1,7 @@
 package com.authmodule.common.utils;
 
-import com.authmodule.common.utils.Token;
-import com.authmodule.user.application.port.out.TokenGeneratorPort;
+import com.authmodule.common.exception.ErrorMessage;
+import com.authmodule.common.exception.TokenException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,7 @@ public class TokenProvider{
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(authentication);
         if (authentication == null || authentication.getName() == null) {
-            throw new RuntimeException("토큰정보가 유효하지 않습니다.");
+            throw new TokenException(ErrorMessage.INVALID_TOKEN.getMessage());
         }
         return Long.parseLong(authentication.getName());
     }
@@ -83,7 +83,7 @@ public class TokenProvider{
     public Authentication getAuthentication(String accessToken){
         Claims claims = parseClaims(accessToken);
         log.info(claims.toString());
-        Optional.ofNullable(claims.get("auth")).orElseThrow(() -> new RuntimeException("권한 정보가 없는 토큰입니다."));
+        Optional.ofNullable(claims.get("auth")).orElseThrow(() -> new TokenException(ErrorMessage.INVALID_TOKEN.getMessage()));
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get("auth").toString().split(","))
                         .map(SimpleGrantedAuthority::new)
@@ -96,15 +96,18 @@ public class TokenProvider{
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         }catch (SecurityException | MalformedJwtException e){
-            log.error("Invalid Token", e);
+            log.error(ErrorMessage.INVALID_TOKEN.getMessage(), e);
+            throw new TokenException(ErrorMessage.INVALID_TOKEN.getMessage());
         }catch (ExpiredJwtException e){
-            log.error("Expired Token", e);
+            log.error(ErrorMessage.EXPIRED_TOKEN.getMessage(), e);
+            throw new TokenException(ErrorMessage.EXPIRED_TOKEN.getMessage());
         }catch (UnsupportedJwtException e){
-            log.error("Unsupported Token", e);
+            log.error(ErrorMessage.UNSUPPORTED_TOKEN.getMessage(), e);
+            throw new TokenException(ErrorMessage.UNSUPPORTED_TOKEN.getMessage());
         }catch (IllegalArgumentException e){
-            log.error("token claims string is empty", e);
+            log.error(ErrorMessage.EMPTY_CLAIMS.getMessage(), e);
+            throw new TokenException(ErrorMessage.EMPTY_CLAIMS.getMessage());
         }
-        return false;
     }
 
     private Claims parseClaims(String accessToken) throws ExpiredJwtException {

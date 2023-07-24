@@ -4,15 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public class LoginCommand {
+    @Email
     @NotBlank
-    private String email;
+    private final String email;
 
     @NotBlank
-    private String password;
+    private final String password;
 }

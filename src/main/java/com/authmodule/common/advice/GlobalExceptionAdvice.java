@@ -34,4 +34,10 @@ public class GlobalExceptionAdvice {
         return ErrorApiResponse.of(HttpStatus.BAD_REQUEST.value(), ErrorMessage.INVALID_ARGUMENT.getMessage());
     }
 
+    @ExceptionHandler(TokenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorApiResponse handleTokenException(TokenException ex) {
+        return ErrorApiResponse.of(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+
 }

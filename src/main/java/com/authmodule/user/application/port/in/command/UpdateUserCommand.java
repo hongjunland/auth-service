@@ -1,18 +1,19 @@
 package com.authmodule.user.application.port.in.command;
 
+import com.authmodule.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
-public class CreateUserCommand {
-
+public class UpdateUserCommand {
+    @NotBlank
+    private final User.UserId userId;
     @NotBlank
     @Email
     private final String email;

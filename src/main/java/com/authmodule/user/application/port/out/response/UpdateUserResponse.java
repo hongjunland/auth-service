@@ -4,13 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 @Builder
-@AllArgsConstructor
-public class UserResponse {
+public class UpdateUserResponse {
     private Long id;
-    private String email;
-    private String password;
-    private String nickname;
+
     private String name;
+
+    private String email;
+
+    private String password;
+
+    private String nickname;
 }
