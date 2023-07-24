@@ -22,7 +22,7 @@ class UserLoadPersistenceAdapter implements LoadUserPort, TokenGeneratorPort {
     public User loadById(Long id) {
         UserJpaEntity userJpaEntity =
                 userRepository.findById(id)
-                        .orElseThrow(()-> new UserNotFoundException(ErrorMessage.USER_NOTFOUND.getMessage()));
+                        .orElseThrow(UserNotFoundException::new);
         return userMapper.mapToDomainEntity(userJpaEntity);
     }
 
@@ -30,7 +30,7 @@ class UserLoadPersistenceAdapter implements LoadUserPort, TokenGeneratorPort {
     public User loadByEmail(String email) {
         UserJpaEntity userJpaEntity =
                 userRepository.findByEmail(email)
-                        .orElseThrow(()-> new UserNotFoundException(ErrorMessage.USER_NOTFOUND.getMessage()));
+                        .orElseThrow(UserNotFoundException::new);
         return userMapper.mapToDomainEntity(userJpaEntity);
     }
 
@@ -38,7 +38,7 @@ class UserLoadPersistenceAdapter implements LoadUserPort, TokenGeneratorPort {
     public User loadByNickname(String nickname) {
         UserJpaEntity userJpaEntity =
                 userRepository.findByNickname(nickname)
-                        .orElseThrow(()-> new UserNotFoundException(ErrorMessage.USER_NOTFOUND.getMessage()));
+                        .orElseThrow(UserNotFoundException::new);
         return userMapper.mapToDomainEntity(userJpaEntity);
     }
 

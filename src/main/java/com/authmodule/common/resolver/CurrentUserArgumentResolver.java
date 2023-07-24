@@ -24,7 +24,6 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
     public Object resolveArgument(
             MethodParameter parameter, ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        System.out.println("CurrentUserArgumentResolver ->  resolveArgument");
         return tokenProvider.extractMemberIdFromToken();
     }
 }

@@ -15,9 +15,9 @@ class UserPersistenceAdapter implements CreateUserPort {
     @Override
     public User createUser(User user) {
         userRepository.findByEmail(user.getEmail())
-                .ifPresent(o -> {throw new UserAlreadyExistsException(ErrorMessage.USER_DUPLICATE.getMessage());});
+                .ifPresent(o -> {throw new UserAlreadyExistsException();});
         userRepository.findByNickname(user.getNickname())
-                .ifPresent(o -> {throw new UserAlreadyExistsException(ErrorMessage.USER_DUPLICATE.getMessage());});
+                .ifPresent(o -> {throw new UserAlreadyExistsException();});
         UserJpaEntity userJpaEntity = userMapper.mapToJpaEntity(user);
         return userMapper.mapToDomainEntity(userRepository.save(userJpaEntity));
     }

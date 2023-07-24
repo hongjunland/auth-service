@@ -37,7 +37,7 @@ class LoginService implements LoginUseCase, UserDetailsService {
 
         Optional.of(passwordEncoderPort.matches(command.getPassword(), user.getPassword()))
                 .filter(matches -> matches)
-                .orElseThrow(() -> new UserBadCredentialsException(ErrorMessage.INVALID_PASSWORD.getMessage()));
+                .orElseThrow(UserBadCredentialsException::new);
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(command.getEmail(), command.getPassword());
         Authentication auth = authBuilder.getObject().authenticate(authToken);
