@@ -1,4 +1,4 @@
-package com.authmodule.user.application.port.out.response;
+package com.authmodule.user.adapter.in.web.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

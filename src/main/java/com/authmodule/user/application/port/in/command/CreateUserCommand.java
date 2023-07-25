@@ -1,6 +1,7 @@
 package com.authmodule.user.application.port.in.command;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Value
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
+@Builder
 public class CreateUserCommand {
 
     @NotBlank

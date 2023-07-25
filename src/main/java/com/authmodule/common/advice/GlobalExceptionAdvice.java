@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+
 
 @RestControllerAdvice
 public class GlobalExceptionAdvice {
@@ -37,6 +39,12 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(TokenException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorApiResponse handleTokenException(TokenException ex) {
+        return ErrorApiResponse.of(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorApiResponse handleConstraintViolationException(ConstraintViolationException ex) {
         return ErrorApiResponse.of(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
 

@@ -43,6 +43,11 @@ class UserLoadPersistenceAdapter implements LoadUserPort, TokenGeneratorPort {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return userRepository.existsById(id);
+    }
+
+    @Override
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }

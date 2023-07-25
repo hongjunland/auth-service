@@ -8,6 +8,7 @@ public interface LoadUserPort {
     User loadById(Long id);
     User loadByEmail(String email);
     User loadByNickname(String nickname);
+    boolean existsById(Long id);
     boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
 }
