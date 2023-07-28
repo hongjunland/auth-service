@@ -3,10 +3,11 @@ package com.authmodule.common;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 public abstract class ApiResponse {
-    protected int status;
-    protected String message;
+    protected final int status;
+    protected final String message;
 }
+

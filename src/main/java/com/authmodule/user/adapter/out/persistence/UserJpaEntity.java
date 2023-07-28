@@ -17,8 +17,12 @@ class UserJpaEntity {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String nickname;
+    @Column(nullable = false)
     private String name;
 }

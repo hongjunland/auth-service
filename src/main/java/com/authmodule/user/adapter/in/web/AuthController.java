@@ -1,6 +1,8 @@
 package com.authmodule.user.adapter.in.web;
 
+import com.authmodule.common.ApiResponse;
 import com.authmodule.common.SuccessApiResponse;
+import com.authmodule.common.SuccessApiResponseWithData;
 import com.authmodule.common.annotaion.WebAdapter;
 import com.authmodule.user.adapter.in.web.dto.reqeust.LoginRequest;
 import com.authmodule.user.application.port.in.command.LoginCommand;
@@ -17,11 +19,11 @@ import javax.validation.Valid;
 class AuthController {
     private final LoginUseCase loginUseCase;
     @PostMapping("/login")
-    public SuccessApiResponse login(@RequestBody LoginRequest loginRequest){
+    public ApiResponse login(@RequestBody LoginRequest loginRequest){
         LoginCommand loginCommand = LoginCommand.builder()
                 .email(loginRequest.getEmail())
                 .password(loginRequest.getPassword())
                 .build();
-        return SuccessApiResponse.of(loginUseCase.login(loginCommand));
+        return SuccessApiResponseWithData.of(loginUseCase.login(loginCommand));
     }
 }

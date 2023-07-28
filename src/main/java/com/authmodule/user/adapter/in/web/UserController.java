@@ -1,6 +1,8 @@
 package com.authmodule.user.adapter.in.web;
 
+import com.authmodule.common.ApiResponse;
 import com.authmodule.common.SuccessApiResponse;
+import com.authmodule.common.SuccessApiResponseWithData;
 import com.authmodule.common.annotaion.CurrentUser;
 import com.authmodule.common.annotaion.WebAdapter;
 import com.authmodule.user.adapter.in.web.dto.reqeust.CreateUserRequest;
@@ -11,6 +13,7 @@ import com.authmodule.user.application.port.in.CreateUserUseCase;
 import com.authmodule.user.application.port.in.command.UpdateUserCommand;
 import com.authmodule.user.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @WebAdapter
@@ -22,14 +25,15 @@ class UserController {
 //    private final UpdateUserUseCase updateUserUseCase;
     private final GetUserQuery getUserQuery;
     @PostMapping
-    public SuccessApiResponse createUser(@RequestBody CreateUserRequest createUserRequest){
+    public ApiResponse createUser(@RequestBody CreateUserRequest createUserRequest){
         CreateUserCommand userCommand = CreateUserCommand.builder()
                 .email(createUserRequest.getEmail())
                 .name(createUserRequest.getName())
                 .nickname(createUserRequest.getNickname())
                 .password(createUserRequest.getPassword())
                 .build();
-        return SuccessApiResponse.of(createUserUseCase.createUser(userCommand));
+        createUserUseCase.createUser(userCommand);
+        return SuccessApiResponse.of();
     }
 //    @PutMapping("/{userId}")
 //    public SuccessApiResponse updateUser(@RequestBody UpdateUserRequest createUserRequest, @CurrentUser Long userId){
@@ -43,12 +47,12 @@ class UserController {
 //        return SuccessApiResponse.of(updateUserUseCase.updateUser(userCommand));
 //    }
     @GetMapping
-    public SuccessApiResponse getCurrentUser(@CurrentUser Long userId){
-        return SuccessApiResponse.of(getUserQuery.getUser(userId));
+    public ApiResponse getCurrentUser(@CurrentUser Long userId){
+        return SuccessApiResponseWithData.of(getUserQuery.getUser(userId));
     }
     @GetMapping("/{userId}")
-    public SuccessApiResponse getUserById(@PathVariable Long userId){
-        return SuccessApiResponse.of(getUserQuery.getUser(userId));
+    public ApiResponse getUserById(@PathVariable Long userId){
+        return SuccessApiResponseWithData.of(getUserQuery.getUser(userId));
     }
 
 }

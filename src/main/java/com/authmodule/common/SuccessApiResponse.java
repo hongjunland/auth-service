@@ -6,13 +6,11 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
-public class SuccessApiResponse<T> extends ApiResponse{
-    private T data;
-    private SuccessApiResponse(T data){
+public class SuccessApiResponse extends ApiResponse{
+    private SuccessApiResponse(){
         super(HttpStatus.OK.value(), "성공");
-        this.data = data;
     }
-    public static <T> SuccessApiResponse<T> of(T data){
-        return new SuccessApiResponse<>(data);
+    public static SuccessApiResponse of(){
+        return new SuccessApiResponse();
     }
 }
