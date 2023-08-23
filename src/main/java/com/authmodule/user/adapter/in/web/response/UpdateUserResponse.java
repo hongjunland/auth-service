@@ -1,4 +1,4 @@
-package com.authmodule.user.adapter.in.web.dto.response;
+package com.authmodule.user.adapter.in.web.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

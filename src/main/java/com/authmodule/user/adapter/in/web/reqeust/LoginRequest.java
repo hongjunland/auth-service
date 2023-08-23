@@ -1,8 +1,7 @@
-package com.authmodule.user.adapter.in.web.dto.reqeust;
+package com.authmodule.user.adapter.in.web.reqeust;
 
 import com.authmodule.common.SelfValidating;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.Value;
 
 import javax.validation.constraints.Email;

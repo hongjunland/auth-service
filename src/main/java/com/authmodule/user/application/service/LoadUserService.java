@@ -3,7 +3,7 @@ package com.authmodule.user.application.service;
 import com.authmodule.common.annotaion.UseCase;
 import com.authmodule.user.application.port.in.GetUserQuery;
 import com.authmodule.user.application.port.out.LoadUserPort;
-import com.authmodule.user.adapter.in.web.dto.response.UserResponse;
+import com.authmodule.user.adapter.in.web.response.UserResponse;
 import com.authmodule.user.domain.User;
 import lombok.RequiredArgsConstructor;
 

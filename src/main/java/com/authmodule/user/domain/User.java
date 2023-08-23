@@ -12,12 +12,15 @@ public class User {
     private final UserId id;
     private final String email;
     private final String password;
-    private final String nickname;
     private final String name;
+    private final String nickname;
 
-//    public Optional<UserId> getId(){
-//        return Optional.ofNullable(this.id);
-//    }
+    public static User withId(UserId id, String email, String password, String name, String nickname) {
+        return new User(id, email, password, name, nickname);
+    }
+    public static User withoutId(String email, String password, String name, String nickname){
+        return new User(null, email, password, name, nickname);
+    }
     @Value
     public static class UserId {
         private final Long value;

@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 
 @RequiredArgsConstructor
 @PersistenceAdapter
-class UserLoadPersistenceAdapter implements LoadUserPort, TokenGeneratorPort {
+class UserLoadPersistenceAdapter implements LoadUserPort {
     private final SpringDataUserRepository userRepository;
     private final UserMapper userMapper;
     private final TokenProvider tokenProvider;
@@ -57,8 +57,4 @@ class UserLoadPersistenceAdapter implements LoadUserPort, TokenGeneratorPort {
         return userRepository.existsByNickname(nickname);
     }
 
-    @Override
-    public Token generateToken(Authentication auth) {
-        return tokenProvider.generateToken(auth);
-    }
 }

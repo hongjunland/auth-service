@@ -1,6 +1,5 @@
 package com.authmodule.user.application.port.in.command;
 
-import com.authmodule.user.adapter.in.web.dto.reqeust.UpdateUserRequest;
 import com.authmodule.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

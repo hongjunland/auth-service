@@ -1,4 +1,4 @@
-package com.authmodule.user.adapter.in.web.dto.reqeust;
+package com.authmodule.user.adapter.in.web.reqeust;
 
 import com.authmodule.common.SelfValidating;
 import lombok.EqualsAndHashCode;
@@ -9,17 +9,17 @@ import javax.validation.constraints.NotBlank;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
-public class UpdateUserRequest extends SelfValidating<UpdateUserRequest> {
+public class CreateUserRequest extends SelfValidating<CreateUserRequest> {
     @Email
-    private final String email;
+    private String email;
     @NotBlank
-    private final String password;
+    private String password;
     @NotBlank
-    private final String nickname;
+    private String nickname;
     @NotBlank
-    private final String name;
+    private String name;
 
-    public UpdateUserRequest(String email, String password, String nickname, String name) {
+    public CreateUserRequest(String email, String password, String nickname, String name) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;

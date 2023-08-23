@@ -15,14 +15,9 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class CreateUserCommand {
 
-    @NotBlank
-    @Email
-    private final String email;
-    @NotBlank
-    private final String password;
-    @NotBlank
-    private final String nickname;
-    @NotBlank
-    private final String name;
+    private String email;
+    private String password;
+    private String nickname;
+    private String name;
 
 }

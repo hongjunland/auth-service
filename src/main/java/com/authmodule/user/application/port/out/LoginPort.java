@@ -1,7 +1,7 @@
 package com.authmodule.user.application.port.out;
 
-import com.authmodule.user.adapter.in.web.dto.response.LoginResponse;
+import com.authmodule.common.utils.Token;
 
 public interface LoginPort {
-    LoginResponse login();
+    Token login(String email, String password);
 }
