@@ -15,8 +15,8 @@ import javax.validation.constraints.NotBlank;
 public class LoginCommand {
     @Email
     @NotBlank
-    private final String email;
+    private String email;
 
     @NotBlank
-    private final String password;
+    private String password;
 }

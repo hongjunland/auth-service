@@ -6,12 +6,14 @@ import com.authmodule.user.adapter.in.web.response.UserResponse;
 import com.authmodule.user.application.port.in.CreateUserUseCase;
 import com.authmodule.user.application.port.in.GetUserQuery;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ class UserControllerTest {
     private CreateUserUseCase createUserUseCase;
     @Mock
     private GetUserQuery getUserQuery;
+
     @DisplayName("유저 생성 테스트")
     @Test
     public void shouldCreateUser_whenPostRequest(){
