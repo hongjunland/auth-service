@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class UserJpaEntity {
+public class UserJpaEntity {
     @Id
     @GeneratedValue
     private Long id;

@@ -16,3 +16,12 @@ include::{snippets}/create-user/http-request.adoc[]
 
 include::{snippets}/create-user/http-response.adoc[]
 
+== 인증 API
+
+include::{snippets}/auth-login/request-fields.adoc[]
+
+include::{snippets}/auth-login/http-request.adoc[]
+
+include::{snippets}/auth-login/http-response.adoc[]
+
+

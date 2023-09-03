@@ -33,7 +33,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @SpringBootTest(properties = "spring.config.location=classpath:/application-local.yml")
@@ -42,18 +41,6 @@ class UserApiDocumentation {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
-
-    //    @MockBean
-//    private CreateUserUseCase createUserUseCase;
-//    @MockBean
-//    private GetUserQuery getUserQuery;
-//    @BeforeEach
-//    public void setUp(WebApplicationContext webApplicationContext,
-//                      RestDocumentationContextProvider restDocumentation) {
-//        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-//                .apply(documentationConfiguration(restDocumentation))
-//                .build();
-//    }
 
     @Test
     public void createUser() throws Exception {
@@ -66,10 +53,10 @@ class UserApiDocumentation {
                 .andDo(print())
                 .andDo(document("create-user",
                         PayloadDocumentation.requestFields(
-                                fieldWithPath("email").description("User's email address"),
-                                fieldWithPath("password").description("User's password"),
-                                fieldWithPath("nickname").description("User's nickname"),
-                                fieldWithPath("name").description("User's full name")
+                                fieldWithPath("email").description("유저 이메일"),
+                                fieldWithPath("password").description("유저 패스워드"),
+                                fieldWithPath("nickname").description("유저 닉네임"),
+                                fieldWithPath("name").description("유저 이름")
                         )
                 ));
     }
