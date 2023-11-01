@@ -41,7 +41,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/vandemarket-product-service:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:latest
 
       - name: Deploy
         uses: appleboy/ssh-action@master
@@ -50,8 +50,8 @@ jobs:
           username: ${{ secrets.ACCOUNT }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/vandemarket-product-service:latest
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:latest
             docker stop $(docker ps -a -q)
-            docker run -d --log-driver=syslog -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/vandemarket-product-service:latest
+            docker run -d --log-driver=syslog -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:latest
             docker rm $(docker ps --filter 'status=exited' -a -q)
             docker image prune -a -f
