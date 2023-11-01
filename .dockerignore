@@ -1,0 +1,25 @@
+# Gradle build files
+build/
+out/
+
+# IntelliJ specific files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Logs
+logs/
+
+# Temporary files
+*.tmp
+
+# Test coverage reports
+jacoco/
+
+# Docker related files
+.dockerignore
+Dockerfile
+
+# Other project specific files
+# Add any additional files or directories specific to your project that should be ignored during Docker build.

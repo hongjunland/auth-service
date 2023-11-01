@@ -59,7 +59,7 @@ class AuthApiDocumentation {
                 .andExpect(status().isOk())
                 .andDo(MockMvcRestDocumentation.document("auth-login",
                         PayloadDocumentation.requestFields(
-                                fieldWithPath("email").description("이메일 주소"),
+                                fieldWithPath("email").description("이메일 주소12"),
                                 fieldWithPath("password").description("비밀번호")
                         )
                         ,PayloadDocumentation.responseFields(
