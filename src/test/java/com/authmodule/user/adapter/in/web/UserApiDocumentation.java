@@ -42,6 +42,7 @@ class UserApiDocumentation {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Transactional
     @Test
     public void createUser() throws Exception {
         CreateUserRequest createUserRequest = new CreateUserRequest("zxc123@naver.com", "zxc", "dd", "dd");

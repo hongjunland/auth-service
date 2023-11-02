@@ -50,6 +50,7 @@ class AuthApiDocumentation {
         springDataUserRepository.save(user);
     }
     @Test
+    @Transactional
     public void loginUser() throws Exception {
         LoginRequest request = new LoginRequest("example@example.com", "testPassword");
 
