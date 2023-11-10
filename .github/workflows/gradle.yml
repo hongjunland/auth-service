@@ -52,6 +52,6 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:latest
             docker stop $(docker ps -a -q)
-            docker run -d -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:latest
+            docker run -d -p 80:8088 ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:latest
             docker rm $(docker ps --filter 'status=exited' -a -q)
             docker image prune -a -f
