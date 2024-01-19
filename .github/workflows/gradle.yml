@@ -50,8 +50,10 @@ jobs:
           username: ${{ secrets.ACCOUNT }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:latest
-            docker stop $(docker ps -a -q)
-            docker run -d -p 80:8088 ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:latest
-            docker rm $(docker ps --filter 'status=exited' -a -q)
+            echo "${{ secrets.DOCKER_COMPOSE }}" > app/docker-compose.yml
+            cd app
+            docker-compose pull
+            docker-compose stop
+            docker-compose up -d
+            docker-compose rm -f
             docker image prune -a -f

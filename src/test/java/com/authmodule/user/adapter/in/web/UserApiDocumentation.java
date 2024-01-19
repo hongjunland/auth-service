@@ -46,7 +46,6 @@ class UserApiDocumentation {
     @Test
     public void createUser() throws Exception {
         CreateUserRequest createUserRequest = new CreateUserRequest("zxc123@naver.com", "zxc", "dd", "dd");
-        System.out.println(objectMapper.writeValueAsString(createUserRequest));
         mockMvc.perform(post("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createUserRequest)))
