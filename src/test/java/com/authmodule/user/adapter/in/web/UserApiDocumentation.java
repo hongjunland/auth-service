@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
-@SpringBootTest(properties = "spring.config.location=classpath:/application.yml")
+@SpringBootTest(properties = "spring.config.location=classpath:/application-test.yml")
 class UserApiDocumentation {
     @Autowired
     private MockMvc mockMvc;
