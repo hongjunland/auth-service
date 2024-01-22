@@ -54,8 +54,7 @@ jobs:
           username: ${{ secrets.ACCOUNT }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            echo "${{ secrets.DOCKER_COMPOSE }}" > app/docker-compose.yml
-            cd app
+            echo "${{ secrets.DOCKER_COMPOSE }}" > docker-compose.yml
             docker-compose pull
             docker-compose stop
             docker-compose up -d
