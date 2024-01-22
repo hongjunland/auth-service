@@ -55,7 +55,7 @@ class AuthApiDocumentation {
     public void loginUser() throws Exception {
         LoginRequest request = new LoginRequest("example@example.com", "testPassword");
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/auth-service/api/v1/auth/login")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/login")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
