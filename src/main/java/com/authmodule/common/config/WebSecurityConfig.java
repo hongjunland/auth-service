@@ -30,7 +30,7 @@ public class WebSecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeHttpRequests((auth) -> auth
-                        .antMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/users").permitAll()
+                        .antMatchers(HttpMethod.POST, "/auth-service/api/v1/auth/login", "/auth-service/api/v1/users").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new TokenAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
