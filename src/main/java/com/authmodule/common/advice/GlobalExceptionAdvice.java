@@ -37,12 +37,6 @@ public class GlobalExceptionAdvice {
         return ErrorApiResponse.of(HttpStatus.BAD_REQUEST.value(), ErrorMessage.INVALID_ARGUMENT.getMessage());
     }
 
-    @ExceptionHandler(TokenException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiResponse handleTokenException(TokenException ex) {
-        return ErrorApiResponse.of(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-    }
-
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse handleConstraintViolationException(ConstraintViolationException ex) {
