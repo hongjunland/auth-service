@@ -3,16 +3,17 @@ package com.authmodule.user.adapter.in.web.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.annotation.security.DenyAll;
 import java.io.Serializable;
 
 @Getter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse implements Serializable{
-    private Long id;
-    private String email;
-    private String password;
+public class UserInfoMessage implements Serializable {
+    private String requestId;
+    private Long userId;
     private String nickname;
-    private String name;
 }
