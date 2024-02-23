@@ -19,7 +19,6 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - uses: actions/checkout@v3
-      - run: mkdir ./src/main/resources
       - run: touch ./src/main/resources/application.yml
       - run: echo "${{ secrets.API_ENV }}" > ./src/main/resources/application.yml
       - run: cat ./src/main/resources/application.yml
