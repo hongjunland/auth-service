@@ -3,7 +3,6 @@ plugins {
     id 'org.springframework.boot' version '2.7.14-SNAPSHOT'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'jacoco'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
 group = 'com.vandemarket'
@@ -53,8 +52,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
-    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
 dependencyManagement {
@@ -71,25 +68,6 @@ test {
     finalizedBy 'jacocoTestReport'
     useJUnitPlatform()
 }
-
-asciidoctor {
-    dependsOn test
-    inputs.dir snippetsDir
-    attributes 'snippets': snippetsDir
-    doFirst {
-        delete 'src/main/resources/static/docs'
-    }
-}
-
-bootJar {
-    dependsOn asciidoctor
-    copy {
-        from "build/docs/asciidoc"
-        into "src/main/resources/static/docs"
-    }
-}
-
-
 
 jacoco {
     toolVersion = '0.8.8'

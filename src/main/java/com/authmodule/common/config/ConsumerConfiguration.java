@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -23,6 +24,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class ConsumerConfiguration {
+    @Value("${kafka.bootstrap-servers}")
+    private String bootstrapServers;
     // KafkaListener 컨테이너 팩토리를 생성하는 Bean 메서드
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
@@ -41,7 +44,7 @@ public class ConsumerConfiguration {
         // Kafka Consumer 구성을 위한 설정값들을 설정 -> 변하지 않는 값이므로 ImmutableMap을 이용하여 설정
         Map<String, Object> consumerConfigurations =
                 ImmutableMap.<String, Object>builder()
-                        .put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")
+                        .put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers)
                         .put(ConsumerConfig.GROUP_ID_CONFIG, "adopt")
                         .put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class)
                         .put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, errorHandlingValueDeserializer.getClass())
