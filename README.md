@@ -27,7 +27,8 @@ Database뿐만 아니라 Service Discovery, JWT, Spring Security등등 여러 �
 ](https://velog.io/@hongjunland/RequestBody%EA%B0%80-%EC%84%A0%EC%96%B8%EB%90%9C-%EA%B0%9D%EC%B2%B4%EC%9D%98-final-field-%EC%9D%B4%EC%8A%88)
 * [DefaultOAuth2UserService 의 super method 의 mocking 문제](https://velog.io/@hongjunland/DefaultOAuth2UserService-%EC%9D%98-super-method-%EC%9D%98-mocking-%EB%AC%B8%EC%A0%9C)
 * [SpringBoot + JWT 인증 리팩토링](https://velog.io/@hongjunland/SpringBoot-JWT-%EC%9D%B8%EC%A6%9D-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81)
-  
+* [Spring REST Docs 도입기
+](https://velog.io/@hongjunland/Spring-REST-Docs-%EB%8F%84%EC%9E%85%EA%B8%B0)
 ## 의의
 처음에는 그냥 단일 서버에서 시작하고자 했습니다. 그러나 점차 공부해보면서 알게되었던 TDD, DDD, MSA, Service Discovery, Broker 등등 여러 기술들을 가장 먼저 적용해 보는 프로젝트가 되었습니다. 또, 다른 프로젝트를 수행할때 가장 먼저 참고해보는 프로젝트가 되었습니다. 수행하면서 여러 문제들을 해결과 관련 기술들을 공부해보면서 해당 사항들을 블로그에 기록하는 습관을 가지게 되는 계기가 되었습니다. 그리고 계속해서 리팩토링을 한다는 생각으로 코드를 짤때 찍어내기용 보다는 확장성을 직접적으로 고려하며 작성하는 경험을 할 수 있게 되었습니다.
 
@@ -38,5 +39,5 @@ Database뿐만 아니라 Service Discovery, JWT, Spring Security등등 여러 �
 * Testing: JUnit5, AssertJ, Mockito, Jacoco, Spring Rest Docs
 * DataBase: runtime-> MySQL, test->h2
 * Message Broker: Apache Kafka
-* Service Discovery: Eureka
+* Service Discovery: Spring Cloud Netflix Eureka Client
 * CI/CD: AWS EC2, Github Actions, Docker, Docker Compose
