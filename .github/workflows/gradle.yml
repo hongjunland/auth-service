@@ -19,11 +19,12 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Copy Secret
+      - name: Copy environment to package
         env:
-          SECRET_FILE: ${{ secrets.API_ENV }}
-          SECRET_PATH: ./src/main/resources/application-prod.yml
-        run: echo "$SECRET_FILE" | base64 --decode > $SECRET_PATH
+          ENV_FILE: ${{ secrets.API_ENV }}
+          ENV_FILE_PATH: ./src/main/resources/application-prod.yml
+#        run: echo "$ENV_FILE" | base64 --decode > $ENV_FILE_PATH
+        run: echo "$ENV_FILE" > $ENV_FILE_PATH
 
       - name: Grant execute permission to Gradle wrapper
         run: chmod +x gradlew
