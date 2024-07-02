@@ -23,7 +23,6 @@ jobs:
         env:
           ENV_FILE: ${{ secrets.API_ENV }}
           ENV_FILE_PATH: ./src/main/resources/application-prod.yml
-#        run: echo "$ENV_FILE" | base64 --decode > $ENV_FILE_PATH
         run: echo "$ENV_FILE" > $ENV_FILE_PATH
 
       - name: Grant execute permission to Gradle wrapper
