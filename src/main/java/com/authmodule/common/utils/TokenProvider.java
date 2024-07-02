@@ -5,7 +5,9 @@ import com.authmodule.common.exception.TokenException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.time.Instant;
 import java.util.*;
@@ -24,16 +27,13 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class TokenProvider{
-    private Key key;
-    @Value("${jwt.expiration.access}")
-    private Long accessTokenExp;
-    @Value("${jwt.expiration.refresh}")
-    private Long refreshTokenExp;
+    private final TokenProperties properties;
 
-    public TokenProvider(@Value("${jwt.secret}") String secretKey){
-        byte[] secretByteKey = Decoders.BASE64.decode(secretKey);
-        this.key = Keys.hmacShaKeyFor(secretByteKey);
+    private SecretKey getSecretKeys(){
+        byte[] secretByteKey = Decoders.BASE64.decode(properties.getSecret());
+        return Keys.hmacShaKeyFor(secretByteKey);
     }
     public Long extractMemberIdFromToken() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -47,10 +47,10 @@ public class TokenProvider{
     //    로그인시 발행토큰
     public Token generateToken(Authentication auth){
         return Token.builder()
-                .grantToken("Bearer")
+                .grantToken(properties.getGranted())
                 .accessToken(generateAccessToken(auth))
                 .refreshToken(generateRefreshToken())
-                .expiration(Instant.now().plusMillis(accessTokenExp))
+                .expiration(Instant.now().plusMillis(properties.getExpiration().getAccess()))
                 .build();
     }
 
@@ -59,15 +59,15 @@ public class TokenProvider{
         return Jwts.builder()
                 .setSubject(auth.getName())
                 .claim("auth", getAuthorities(auth))
-                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExp))
-                .signWith(key, SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + properties.getExpiration().getAccess()))
+                .signWith(getSecretKeys(), SignatureAlgorithm.HS256)
                 .compact();
     }
     // Refresh Token 발행
     public String generateRefreshToken(){
         return Jwts.builder()
-                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExp))
-                .signWith(key, SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + properties.getExpiration().getRefresh()))
+                .signWith(getSecretKeys(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -90,7 +90,7 @@ public class TokenProvider{
     }
     public boolean isValidToken(String token){
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(getSecretKeys()).build().parseClaimsJws(token);
             return true;
         }catch (SecurityException | MalformedJwtException e){
             log.error(ErrorMessage.INVALID_TOKEN.getMessage(), e);
@@ -108,7 +108,7 @@ public class TokenProvider{
     }
 
     public Claims parseClaims(String accessToken) throws ExpiredJwtException {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+        return Jwts.parserBuilder().setSigningKey(getSecretKeys()).build().parseClaimsJws(accessToken).getBody();
     }
 
 
