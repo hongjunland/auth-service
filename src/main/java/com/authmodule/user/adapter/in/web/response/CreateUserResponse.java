@@ -1,18 +1,8 @@
 package com.authmodule.user.adapter.in.web.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 
-import javax.validation.constraints.NotNull;
 
-@AllArgsConstructor
-@Getter
 @Builder
-public class CreateUserResponse {
-    private final Long id;
-    private final String name;
-    private final String email;
-    private final String password;
-    private final String nickname;
+public record CreateUserResponse(Long id, String name, String email, String password, String nickname) {
 }

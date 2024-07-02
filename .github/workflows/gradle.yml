@@ -16,14 +16,13 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
-      - uses: actions/checkout@v3
-      - run: touch ./src/main/resources/application.yml
+
       - name: Copy Secret
         env:
           SECRET_FILE: ${{ secrets.API_ENV }}
-          SECRET_PATH: ./src/main/resources/application.yml
+          SECRET_PATH: ./src/main/resources/application-prod.yml
         run: echo "$SECRET_FILE" | base64 --decode > $SECRET_PATH
 
       - name: Grant execute permission to Gradle wrapper

@@ -5,12 +5,11 @@ import com.authmodule.user.application.port.in.CreateUserUseCase;
 import com.authmodule.user.application.port.in.command.CreateUserCommand;
 import com.authmodule.user.application.port.out.CreateUserPort;
 import com.authmodule.user.adapter.in.web.response.CreateUserResponse;
-import com.authmodule.user.application.port.out.LoadUserPort;
 import com.authmodule.user.application.port.out.PasswordEncoderPort;
 import com.authmodule.user.domain.User;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
-import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @UseCase
@@ -22,16 +21,16 @@ class CreateUserService implements CreateUserUseCase {
     @Override
     public CreateUserResponse createUser(CreateUserCommand command) {
         User user = User.builder()
-                .email(command.getEmail())
-                .nickname(command.getNickname())
-                .name(command.getName())
-                .password(encoderPort.encode(command.getPassword()))
+                .email(command.email())
+                .nickname(command.nickname())
+                .name(command.name())
+                .password(encoderPort.encode(command.password()))
                 .build();
 
         User createdUser = createUserPort.createUser(user);
 
         return CreateUserResponse.builder()
-                .id(createdUser.getId().getValue())
+                .id(createdUser.getId().value())
                 .name(createdUser.getNickname())
                 .email(createdUser.getEmail())
                 .name(createdUser.getName())

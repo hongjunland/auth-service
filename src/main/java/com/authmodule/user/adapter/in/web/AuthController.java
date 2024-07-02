@@ -1,10 +1,8 @@
 package com.authmodule.user.adapter.in.web;
 
-import com.authmodule.common.ApiResponse;
 import com.authmodule.common.SuccessApiResponse;
 import com.authmodule.common.annotaion.WebAdapter;
 import com.authmodule.user.adapter.in.web.reqeust.LoginRequest;
-import com.authmodule.user.adapter.in.web.response.LoginResponse;
 import com.authmodule.user.application.port.in.command.LoginCommand;
 import com.authmodule.user.application.port.in.LoginUseCase;
 import lombok.RequiredArgsConstructor;

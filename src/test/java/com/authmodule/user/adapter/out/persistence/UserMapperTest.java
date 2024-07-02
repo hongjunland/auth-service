@@ -28,7 +28,7 @@ class UserMapperTest {
 
         User user = userMapper.mapToDomainEntity(userJpaEntity);
 
-        assertThat(user.getId().getValue()).isEqualTo(userJpaEntity.getId());
+        assertThat(user.getId().value()).isEqualTo(userJpaEntity.getId());
         assertThat(user.getEmail()).isEqualTo(userJpaEntity.getEmail());
         assertThat(user.getPassword()).isEqualTo(userJpaEntity.getPassword());
         assertThat(user.getName()).isEqualTo(userJpaEntity.getName());

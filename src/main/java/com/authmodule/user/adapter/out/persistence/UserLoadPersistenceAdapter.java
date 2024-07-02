@@ -1,22 +1,17 @@
 package com.authmodule.user.adapter.out.persistence;
 
 import com.authmodule.common.annotaion.PersistenceAdapter;
-import com.authmodule.common.exception.ErrorMessage;
 import com.authmodule.common.exception.UserNotFoundException;
-import com.authmodule.common.utils.Token;
 import com.authmodule.common.utils.TokenProvider;
 import com.authmodule.user.application.port.out.LoadUserPort;
-import com.authmodule.user.application.port.out.TokenGeneratorPort;
 import com.authmodule.user.domain.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 
 @RequiredArgsConstructor
 @PersistenceAdapter
 class UserLoadPersistenceAdapter implements LoadUserPort {
     private final SpringDataUserRepository userRepository;
     private final UserMapper userMapper;
-    private final TokenProvider tokenProvider;
 
     @Override
     public User loadById(Long id) {

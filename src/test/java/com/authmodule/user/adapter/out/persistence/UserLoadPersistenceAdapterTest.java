@@ -55,7 +55,7 @@ class UserLoadPersistenceAdapterTest {
             userLoadPersistenceAdapter.loadById(1L);
         });
         // then
-        verify(userRepository, times(1)).findById(user.getId().getValue());
+        verify(userRepository, times(1)).findById(user.getId().value());
     }
 
     @DisplayName("아이디로 사용자 로드 성공")

@@ -4,7 +4,6 @@ import com.authmodule.user.application.port.in.command.CreateUserCommand;
 import com.authmodule.user.application.port.out.CreateUserPort;
 import com.authmodule.user.application.port.out.PasswordEncoderPort;
 import com.authmodule.user.domain.User;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,7 +46,7 @@ class CreateUserServiceTest {
         createUserService.createUser(createUserCommand);
         // Then
         verify(createUserPort, times(1)).createUser(any(User.class));
-        verify(passwordEncoderPort, times(1)).encode(createUserCommand.getPassword());
+        verify(passwordEncoderPort, times(1)).encode(createUserCommand.password());
 
     }
 

@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.annotation.security.DenyAll;
 import java.io.Serializable;
 
 @Getter

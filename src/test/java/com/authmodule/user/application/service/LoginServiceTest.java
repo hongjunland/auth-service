@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.Instant;
@@ -59,17 +57,17 @@ class LoginServiceTest {
                 .build();
 //        Authentication auth = mock(Authentication.class);
 //        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginCommand.getEmail(), loginCommand.getPassword());
-        when(loadUserPort.loadByEmail(loginCommand.getEmail())).thenReturn(user);
+        when(loadUserPort.loadByEmail(loginCommand.email())).thenReturn(user);
         when(passwordEncoderPort.matches(rawPassword, encodedPassword)).thenReturn(true);
-        when(loginPort.login(loginCommand.getEmail(), loginCommand.getPassword())).thenReturn(token);
+        when(loginPort.login(loginCommand.email(), loginCommand.password())).thenReturn(token);
         // When
         LoginResponse loginResponse = loginService.login(loginCommand);
 
         // Then
         verify(loadUserPort, times(1)).loadByEmail(email);
-        verify(passwordEncoderPort, times(1)).matches(loginCommand.getPassword(), user.getPassword());
-        assertEquals(loginResponse.getAccessToken(), token.getAccessToken());
-        assertEquals(loginResponse.getRefreshToken(), token.getRefreshToken());
-        assertEquals(loginResponse.getExpiration(), token.getExpiration().toString());
+        verify(passwordEncoderPort, times(1)).matches(loginCommand.password(), user.getPassword());
+        assertEquals(loginResponse.accessToken(), token.getAccessToken());
+        assertEquals(loginResponse.refreshToken(), token.getRefreshToken());
+        assertEquals(loginResponse.expiration(), token.getExpiration().toString());
     }
 }

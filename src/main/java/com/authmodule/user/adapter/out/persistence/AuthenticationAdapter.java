@@ -19,7 +19,6 @@ class AuthenticationAdapter implements LoginPort {
     public Token login(String email, String password) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password);
         Authentication auth = authenticationManager.authenticate(authToken);
-        Token token = tokenProvider.generateToken(auth);
-        return token;
+        return tokenProvider.generateToken(auth);
     }
 }

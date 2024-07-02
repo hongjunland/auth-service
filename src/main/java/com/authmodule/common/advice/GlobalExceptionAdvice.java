@@ -3,12 +3,11 @@ package com.authmodule.common.advice;
 import com.authmodule.common.ApiResponse;
 import com.authmodule.common.ErrorApiResponse;
 import com.authmodule.common.exception.*;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 
 
 @RestControllerAdvice

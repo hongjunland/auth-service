@@ -7,15 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 
-@Value
-@EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor
 @Builder
-public class UpdateUserCommand {
-    private final User.UserId userId;
-    private final String email;
-    private final String password;
-    private final String nickname;
-    private final String name;
-
+public record UpdateUserCommand(User.UserId userId, String email, String password, String nickname, String name) {
 }

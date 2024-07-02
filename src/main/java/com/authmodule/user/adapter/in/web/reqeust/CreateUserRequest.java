@@ -1,11 +1,11 @@
 package com.authmodule.user.adapter.in.web.reqeust;
 
 import com.authmodule.common.SelfValidating;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 
 @Value
 @EqualsAndHashCode(callSuper = false)

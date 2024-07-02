@@ -1,13 +1,12 @@
 package com.authmodule.common.utils;
 
-import ch.qos.logback.core.status.ErrorStatus;
 import com.authmodule.common.exception.ErrorMessage;
 import com.authmodule.common.exception.TokenException;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,18 +16,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
-import java.io.IOException;
 import java.security.Key;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+
 
 @Slf4j
 @Component
@@ -40,7 +32,7 @@ public class TokenProvider{
     private Long refreshTokenExp;
 
     public TokenProvider(@Value("${jwt.secret}") String secretKey){
-        byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
+        byte[] secretByteKey = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(secretByteKey);
     }
     public Long extractMemberIdFromToken() {

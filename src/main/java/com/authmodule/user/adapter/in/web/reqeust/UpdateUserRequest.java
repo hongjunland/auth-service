@@ -4,20 +4,20 @@ import com.authmodule.common.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
 public class UpdateUserRequest extends SelfValidating<UpdateUserRequest> {
     @Email
-    private final String email;
+    private String email;
     @NotBlank
-    private final String password;
+    private String password;
     @NotBlank
-    private final String nickname;
+    private String nickname;
     @NotBlank
-    private final String name;
+    private String name;
 
     public UpdateUserRequest(String email, String password, String nickname, String name) {
         this.email = email;

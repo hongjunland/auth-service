@@ -7,8 +7,8 @@ import com.authmodule.user.application.port.in.command.LoginCommand;
 import com.authmodule.user.application.port.out.*;
 import com.authmodule.user.adapter.in.web.response.LoginResponse;
 import com.authmodule.user.domain.User;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import javax.transaction.Transactional;
 @RequiredArgsConstructor
 @UseCase
 @Transactional
@@ -19,9 +19,9 @@ class LoginService implements LoginUseCase {
 
     @Override
     public LoginResponse login(LoginCommand command) {
-        User user = loadUserPort.loadByEmail(command.getEmail());
-        passwordEncoderPort.matches(command.getPassword(), user.getPassword());
-        Token jwtToken = loginPort.login(command.getEmail(), command.getPassword());
+        User user = loadUserPort.loadByEmail(command.email());
+        passwordEncoderPort.matches(command.password(), user.getPassword());
+        Token jwtToken = loginPort.login(command.email(), command.password());
 
         return LoginResponse.builder()
                 .accessToken(jwtToken.getAccessToken())

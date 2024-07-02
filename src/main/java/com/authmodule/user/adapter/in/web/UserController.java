@@ -1,6 +1,5 @@
 package com.authmodule.user.adapter.in.web;
 
-import com.authmodule.common.ApiResponse;
 import com.authmodule.common.SuccessApiResponse;
 import com.authmodule.common.annotaion.CurrentUser;
 import com.authmodule.common.annotaion.WebAdapter;
@@ -26,8 +25,8 @@ class UserController {
                 .nickname(createUserRequest.getNickname())
                 .password(createUserRequest.getPassword())
                 .build();
-        createUserUseCase.createUser(userCommand);
-        return SuccessApiResponse.of();
+//        createUserUseCase.createUser(userCommand);
+        return SuccessApiResponse.of(createUserUseCase.createUser(userCommand));
     }
 
     @GetMapping

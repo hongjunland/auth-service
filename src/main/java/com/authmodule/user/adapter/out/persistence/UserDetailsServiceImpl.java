@@ -4,13 +4,13 @@ package com.authmodule.user.adapter.out.persistence;
 
 import com.authmodule.common.exception.UserNotFoundException;
 import com.authmodule.common.utils.UserDetailsImpl;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
