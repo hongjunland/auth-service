@@ -25,7 +25,6 @@ class UserController {
                 .nickname(createUserRequest.getNickname())
                 .password(createUserRequest.getPassword())
                 .build();
-//        createUserUseCase.createUser(userCommand);
         return SuccessApiResponse.of(createUserUseCase.createUser(userCommand));
     }
 

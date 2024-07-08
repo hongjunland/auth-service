@@ -2,7 +2,6 @@ package com.authmodule.user.adapter.out.persistence;
 
 import com.authmodule.common.annotaion.PersistenceAdapter;
 import com.authmodule.common.exception.UserNotFoundException;
-import com.authmodule.common.utils.TokenProvider;
 import com.authmodule.user.application.port.out.LoadUserPort;
 import com.authmodule.user.domain.User;
 import lombok.RequiredArgsConstructor;

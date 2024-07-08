@@ -1,4 +1,4 @@
-package com.authmodule.common.utils;
+package com.authmodule.common.jwt;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

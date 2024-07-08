@@ -1,8 +1,7 @@
-package com.authmodule.common.utils;
+package com.authmodule.common.jwt.userdetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +11,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter
-public class UserDetailsImpl implements UserDetails {
+public class CustomUserDetails implements UserDetails {
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;

@@ -6,6 +6,7 @@ import com.authmodule.user.application.port.out.CreateUserPort;
 import com.authmodule.user.domain.User;
 import lombok.RequiredArgsConstructor;
 
+
 @RequiredArgsConstructor
 @PersistenceAdapter
 class UserPersistenceAdapter implements CreateUserPort {

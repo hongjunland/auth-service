@@ -1,4 +1,4 @@
-package com.authmodule.common.utils;
+package com.authmodule.common.jwt;
 
 import lombok.*;
 import java.time.Instant;
@@ -8,7 +8,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Builder
-public class Token {
+public class JwtToken {
     private String grantToken;
     private String accessToken;
     private String refreshToken;

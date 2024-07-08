@@ -1,8 +1,8 @@
 package com.authmodule.user.adapter.out.persistence;
 
 
-import com.authmodule.common.utils.Token;
-import com.authmodule.common.utils.TokenProvider;
+import com.authmodule.common.jwt.JwtToken;
+import com.authmodule.common.jwt.JwtProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,22 +23,22 @@ class AuthenticationAdapterTest {
     @Mock
     private AuthenticationManager authenticationManager;
     @Mock
-    private TokenProvider tokenProvider;
+    private JwtProvider JWtProvider;
 
     @DisplayName("로그인")
     @Test
     public void login(){
         // Given
         Authentication auth = mock(Authentication.class);
-        Token token = mock(Token.class);
+        JwtToken jwtToken = mock(JwtToken.class);
         when(authenticationManager.authenticate(any())).thenReturn(auth);
-        when(tokenProvider.generateToken(auth)).thenReturn(token);
+        when(JWtProvider.generateToken(auth)).thenReturn(jwtToken);
 
         // When
         authenticationAdapter.login("zxc123@naver.com", "zxczxczxc");
 
         // Then
         verify(authenticationManager, times(1)).authenticate(any());
-        verify(tokenProvider, times(1)).generateToken(auth);
+        verify(JWtProvider, times(1)).generateToken(auth);
     }
 }

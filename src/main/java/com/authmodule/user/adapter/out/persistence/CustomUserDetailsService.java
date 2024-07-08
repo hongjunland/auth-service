@@ -2,31 +2,37 @@ package com.authmodule.user.adapter.out.persistence;
 
 
 
+import com.authmodule.common.exception.ErrorMessage;
 import com.authmodule.common.exception.UserNotFoundException;
-import com.authmodule.common.utils.UserDetailsImpl;
+import com.authmodule.common.jwt.userdetails.CustomUserDetails;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component
 @Transactional
-class UserDetailsServiceImpl implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     private final SpringDataUserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username){
         UserJpaEntity user = userRepository.findByEmail(username)
                 .orElseThrow(UserNotFoundException::new);
-        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if(user.getProvider() != null){
+            throw new RuntimeException(ErrorMessage.SOCIAL_LOGIN_NOT_ALLOWED.getMessage());
+        }
+        List<SimpleGrantedAuthority> authorities = user.getRoles().stream()
+                .map((authority)-> new SimpleGrantedAuthority(authority.name()))
+                .toList();
 
-        return UserDetailsImpl.builder()
+        return CustomUserDetails.builder()
                 .username(user.getId().toString())
                 .password(user.getPassword())
                 .authorities(authorities)

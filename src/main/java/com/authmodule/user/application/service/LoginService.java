@@ -1,7 +1,7 @@
 package com.authmodule.user.application.service;
 
 import com.authmodule.common.annotaion.*;
-import com.authmodule.common.utils.Token;
+import com.authmodule.common.jwt.JwtToken;
 import com.authmodule.user.application.port.in.*;
 import com.authmodule.user.application.port.in.command.LoginCommand;
 import com.authmodule.user.application.port.out.*;
@@ -21,7 +21,7 @@ class LoginService implements LoginUseCase {
     public LoginResponse login(LoginCommand command) {
         User user = loadUserPort.loadByEmail(command.email());
         passwordEncoderPort.matches(command.password(), user.getPassword());
-        Token jwtToken = loginPort.login(command.email(), command.password());
+        JwtToken jwtToken = loginPort.login(command.email(), command.password());
 
         return LoginResponse.builder()
                 .accessToken(jwtToken.getAccessToken())

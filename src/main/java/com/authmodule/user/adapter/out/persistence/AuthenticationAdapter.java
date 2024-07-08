@@ -1,8 +1,8 @@
 package com.authmodule.user.adapter.out.persistence;
 
 import com.authmodule.common.annotaion.PersistenceAdapter;
-import com.authmodule.common.utils.Token;
-import com.authmodule.common.utils.TokenProvider;
+import com.authmodule.common.jwt.JwtToken;
+import com.authmodule.common.jwt.JwtProvider;
 import com.authmodule.user.application.port.out.LoginPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,12 +13,12 @@ import org.springframework.security.core.Authentication;
 @RequiredArgsConstructor
 class AuthenticationAdapter implements LoginPort {
     private final AuthenticationManager authenticationManager;
-    private final TokenProvider tokenProvider;
+    private final JwtProvider JWtProvider;
 
     @Override
-    public Token login(String email, String password) {
+    public JwtToken login(String email, String password) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password);
         Authentication auth = authenticationManager.authenticate(authToken);
-        return tokenProvider.generateToken(auth);
+        return JWtProvider.generateToken(auth);
     }
 }

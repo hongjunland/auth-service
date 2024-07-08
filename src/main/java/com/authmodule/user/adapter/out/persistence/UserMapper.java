@@ -20,6 +20,7 @@ class UserMapper {
                 .password(user.getPassword())
                 .nickname(user.getNickname())
                 .name(user.getName())
+                .roles(user.getRoles())
                 .build();
         }
 }

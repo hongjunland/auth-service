@@ -1,6 +1,6 @@
 package com.authmodule.user.application.service;
 
-import com.authmodule.common.utils.Token;
+import com.authmodule.common.jwt.JwtToken;
 import com.authmodule.user.adapter.in.web.response.LoginResponse;
 import com.authmodule.user.application.port.in.command.LoginCommand;
 import com.authmodule.user.application.port.out.LoadUserPort;
@@ -50,7 +50,7 @@ class LoginServiceTest {
                 .password(encodedPassword)
                 .email(email)
                 .build();
-        Token token = Token.builder()
+        JwtToken jwtToken = JwtToken.builder()
                 .accessToken("Bearer accessToken")
                 .refreshToken("refreshToken")
                 .expiration(Instant.now().plusMillis(3600000L))
@@ -59,15 +59,15 @@ class LoginServiceTest {
 //        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginCommand.getEmail(), loginCommand.getPassword());
         when(loadUserPort.loadByEmail(loginCommand.email())).thenReturn(user);
         when(passwordEncoderPort.matches(rawPassword, encodedPassword)).thenReturn(true);
-        when(loginPort.login(loginCommand.email(), loginCommand.password())).thenReturn(token);
+        when(loginPort.login(loginCommand.email(), loginCommand.password())).thenReturn(jwtToken);
         // When
         LoginResponse loginResponse = loginService.login(loginCommand);
 
         // Then
         verify(loadUserPort, times(1)).loadByEmail(email);
         verify(passwordEncoderPort, times(1)).matches(loginCommand.password(), user.getPassword());
-        assertEquals(loginResponse.accessToken(), token.getAccessToken());
-        assertEquals(loginResponse.refreshToken(), token.getRefreshToken());
-        assertEquals(loginResponse.expiration(), token.getExpiration().toString());
+        assertEquals(loginResponse.accessToken(), jwtToken.getAccessToken());
+        assertEquals(loginResponse.refreshToken(), jwtToken.getRefreshToken());
+        assertEquals(loginResponse.expiration(), jwtToken.getExpiration().toString());
     }
 }

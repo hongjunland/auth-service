@@ -1,5 +1,6 @@
-package com.authmodule.common.utils;
+package com.authmodule.common.jwt;
 
+import com.authmodule.common.config.properties.JwtProperties;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -16,15 +17,15 @@ import org.springframework.web.filter.GenericFilterBean;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class TokenAuthenticationFilter extends GenericFilterBean {
-    private final TokenProvider tokenProvider;
-
+public class JwtAuthenticationFilter extends GenericFilterBean {
+    private final JwtProvider JWtProvider;
+    private final JwtProperties jwtProperties;
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String token = resolveToken((HttpServletRequest) request);
         try {
-            if (token != null && tokenProvider.isValidToken(token)) {
-                Authentication auth = tokenProvider.getAuthentication(token);
+            if (token != null && JWtProvider.isValidToken(token)) {
+                Authentication auth = JWtProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
             chain.doFilter(request, response);
@@ -34,8 +35,8 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
     }
 
     private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        return StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer") ? bearerToken.substring(7) : null;
+        String bearerToken = request.getHeader(jwtProperties.getHeader());
+        return StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getGranted()) ? bearerToken.substring(7) : null;
     }
 
     private void handleException(HttpServletResponse response, RuntimeException e) throws IOException {

@@ -16,6 +16,7 @@ public enum ErrorMessage {
     EXPIRED_TOKEN("만료된 토큰"),
     UNSUPPORTED_TOKEN("지원하지 않는 토큰"),
     EMPTY_CLAIMS("토큰 클레임이 비어 있음"),
-    MALFORMED_TOKEN("형식에 맞지 않는 토큰");
+    MALFORMED_TOKEN("형식에 맞지 않는 토큰"),
+    SOCIAL_LOGIN_NOT_ALLOWED("소셜 로그인 계정은 이메일 로그인이 불가능합니다.");
     private final String message;
 }

@@ -1,7 +1,7 @@
 package com.authmodule.common.resolver;
 
 import com.authmodule.common.annotaion.CurrentUser;
-import com.authmodule.common.utils.TokenProvider;
+import com.authmodule.common.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 @Component
 @RequiredArgsConstructor
 public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolver {
-    private final TokenProvider tokenProvider;
+    private final JwtProvider JWtProvider;
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.getParameterAnnotation(CurrentUser.class) != null
@@ -24,6 +24,6 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
     public Object resolveArgument(
             MethodParameter parameter, ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        return tokenProvider.extractMemberIdFromToken();
+        return JWtProvider.extractMemberIdFromToken();
     }
 }

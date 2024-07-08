@@ -1,8 +1,7 @@
 package com.authmodule.common.config;
 
-import com.authmodule.common.utils.TokenProperties;
+import com.authmodule.common.config.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,7 +18,7 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 @Configuration
 @RequiredArgsConstructor
 public class SwaggerConfig {
-    private final TokenProperties tokenProperties;
+    private final JwtProperties tokenProperties;
     @Bean
     public OpenAPI openAPI() {
         SecurityRequirement securityRequirement =
