@@ -1,5 +1,6 @@
 package com.authmodule.user.adapter.out.persistence;
 
+import com.authmodule.common.jwt.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -33,9 +35,9 @@ class UserDetailsServiceImplTest {
                 .name("홍길동")
                 .password("encodedPassword")
                 .email(email)
+                .roles(Set.of(Role.ROLE_USER))
                 .build();
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(userJpaEntity));
-
         //When
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
