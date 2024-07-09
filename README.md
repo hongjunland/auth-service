@@ -2,13 +2,14 @@
 
 ## Overview
 사이드프로젝트와 같이 여러 서비스 또는 나중에 참여할 프로젝트들을 대비해서 공통될만한 부분을 구현한 인증서버입니다.
-Java 11와 Spring Boot 2.7 버전을 사용했으며, Spring Security를 통해 Authentication 및 Authorization부분을 구현하였습니다.
+Java 17와 Spring Boot 3.x 버전을 사용했으며, Spring Security를 통해 Authentication 및 Authorization부분을 구현하였습니다.
 그리고 DB에 의존성을 줄이고자 ORM으로 구성했습니다. MSA방식에 도입할 수 있도록 도메인 별로 모듈을 나누도록 하였고, 클린 아키텍처를 구성했습니다.
 
 개발방법론은 TDD를 수행했습니다. Mockito로 외부 의존성과 독립적으로 테스트 하도록 하였으며, Jacoco를 통해 테스트 커버리지를 측정하도록 했습니다.
 테스트환경과 실행환경을 구분하고자 환경마다 Database를 분리하였습니다. 
 
 Spring Security와 JWT와 그리고 테스트 코드를 작성해보면서 발생하는 문제에 대해 해결해보면서, 관련 기술 및 코드에 대해 깊게 알아보는 경험이 되었습니다.
+
 
 ## 주요 기능
 * JWT 인증(로그인)
@@ -34,10 +35,46 @@ Database뿐만 아니라 Service Discovery, JWT, Spring Security등등 여러 �
 
 
 ## 개발 환경
-* Language: Java 11
-* Library & Framework: Spring Boot 2.7.x, JPA
-* Testing: JUnit5, AssertJ, Mockito, Jacoco, Spring Rest Docs
+* Language: Java 17
+* Library & Framework: Spring Boot 3.0.x, JPA, OAuth2
+* Testing: JUnit5, AssertJ, Mockito, Jacoco
 * DataBase: runtime-> MySQL, test->h2
-* Message Broker: Apache Kafka
-* Service Discovery: Spring Cloud Netflix Eureka Client
-* CI/CD: AWS EC2, Github Actions, Docker, Docker Compose
+* CI/CD: AWS EC2, GitHub Actions, Docker, Docker Compose
+
+## Release
+### 버전 1.2.1
+- **날짜**: 2024년 7월 8일
+- **주요 변경 사항**:
+    - OAuth 로그인 추가 `[FEAT]: OAuth 로그인 추가`
+    - 로그인 테스트 부분 오류 수정 `[TEST]: 로그인 테스트 부분 오류 수정`
+  
+### 버전 1.2.0
+- **날짜**: 2024년 7월 2일
+- **주요 변경 사항**:
+    - Java11 -> 17 전환 `[REFACTOR]: update properties`
+    - 패키지 구조 변경 `[CHORE]: Refactoring package`
+
+### 버전 1.1.0
+- **날짜**: 2024년 4월 2일
+- **주요 변경 사항**:
+    - 배포환경 구축 `[FIX]: 배포환경 구축`
+    - 현재 사용자 정보 기능 추가 `[FEAT]: 현재 사용자 정보 기능UserKafkaService 추가`
+    - Kafka 추가 `[FEAT]: Kafka 추가`
+    - Authentication Handling 관련 추가 `[FEAT]: Authentication Handling 관련 추가`
+    - Eureka 설정 추가 `[FEAT]: eureka 설정`
+
+### 버전 1.0.1
+- **날짜**: 2023년 11월 2일
+- **주요 변경 사항**:
+    - Transactional 추가 `[FEAT]: Transactional 추가`
+    - 데이터베이스 변경 (H2 -> MySQL) `[FEAT]: h2 -> mysql 변경`
+    - Docker 테스트 추가 `[FEAT]: docker test`
+
+### 버전 1.0.0
+- **날짜**: 2023년 7월 14일
+- **주요 변경 사항**:
+    - 회원가입, 로그인, ApiResponse, ErrorHandler, Exception 정의 `[FEAT]: 회원가입, 로그인, ApiResponse, ErrorHandler, Exception 정의`
+    - Spring Rest Docs 추가 `[Feat]: Spring Rest Docs 추가`
+    - Spring Rest Docs snippets 설정, auth-login test 문서 추가 `[Chore]: Spring Rest Docs snippets 설정, auth-login test 문서 추가`
+    - root 패키지 이름 변경 `[FEAT]: root package name 변경`
+    - 배포 기능 추가, GitHub Actions 추가 `[FEAT]: 배포기능 추가, github actions 추가`
