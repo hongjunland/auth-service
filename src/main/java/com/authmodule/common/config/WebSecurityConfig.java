@@ -46,8 +46,6 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/users").permitAll()
                         .requestMatchers( "/oauth2/**", "/login/oauth2/code/**").permitAll()
-                        .requestMatchers( "/success").permitAll()
-                        .requestMatchers( "/api/v1/userinfo").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2Login ->
