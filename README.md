@@ -42,6 +42,11 @@ Database뿐만 아니라 Service Discovery, JWT, Spring Security등등 여러 �
 * CI/CD: AWS EC2, GitHub Actions, Docker, Docker Compose
 
 ## Release
+### 버전 1.2.2
+- **날짜**: 2024년 11월 20일
+- **주요 변경 사항**:
+    - JWT 재발급 기능 `[FEAT]리프레시 토큰 추가`
+    - Refresh Token 저장소 선택 옵션 추가 `[FEAT]: Refresh Token 저장소 선택 옵션 추가`
 ### 버전 1.2.1
 - **날짜**: 2024년 7월 8일
 - **주요 변경 사항**:
