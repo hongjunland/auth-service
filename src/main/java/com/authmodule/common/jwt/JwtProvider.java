@@ -3,7 +3,9 @@ package com.authmodule.common.jwt;
 import com.authmodule.common.config.properties.JwtProperties;
 import com.authmodule.common.exception.ErrorMessage;
 import com.authmodule.common.exception.TokenException;
+import com.authmodule.common.jwt.refresh.repository.RefreshTokenRepository;
 import io.jsonwebtoken.*;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
+    @Getter
     private final JwtProperties properties;
     private final JwtDecoder jwtDecoder;
     private final JwtEncoder jwtEncoder;
@@ -47,6 +50,7 @@ public class JwtProvider {
                 .expiration(Instant.now().plusMillis(properties.getExpiration().getAccess()))
                 .build();
     }
+
 
     //    Access Token 발행
     public String generateAccessToken(Authentication auth) {
@@ -93,6 +97,7 @@ public class JwtProvider {
                 Arrays.stream(claims.get("auth").toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
+
         return new JwtAuthenticationToken(jwt, authorities);
     }
 
@@ -112,6 +117,9 @@ public class JwtProvider {
         } catch (IllegalArgumentException e) {
             log.error(ErrorMessage.EMPTY_CLAIMS.getMessage(), e);
             throw new TokenException(ErrorMessage.EMPTY_CLAIMS.getMessage());
+        } catch (JwtValidationException e){
+            log.error(ErrorMessage.INVALID_TOKEN.getMessage(), e);
+            throw new TokenException(e.getMessage());
         }
     }
 
@@ -120,4 +128,20 @@ public class JwtProvider {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
     }
+
+    //    로그인시 발행토큰
+    public JwtToken reissueToken(Authentication auth) {
+        return JwtToken.builder()
+                .grantToken(properties.getGranted())
+                .accessToken(generateAccessToken(auth))
+                .expiration(Instant.now().plusMillis(properties.getExpiration().getAccess()))
+                .build();
+    }
+    public String extractUserIdFromToken(String refreshToken){
+        Jwt jwt = jwtDecoder.decode(refreshToken);
+        // 권한 정보(auth)는 필요하지 않으므로 생략
+        return Optional.ofNullable(jwt.getSubject())
+                .orElseThrow(() -> new TokenException(ErrorMessage.INVALID_TOKEN.getMessage()));
+    }
+
 }

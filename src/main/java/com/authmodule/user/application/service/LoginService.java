@@ -29,4 +29,9 @@ class LoginService implements LoginUseCase {
                 .expiration(jwtToken.getExpiration().toString())
                 .build();
     }
+
+    @Override
+    public void logout(Long userId) {
+        loginPort.logout(userId);
+    }
 }

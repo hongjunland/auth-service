@@ -5,6 +5,7 @@ import com.authmodule.common.ErrorApiResponse;
 import com.authmodule.common.exception.*;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.jwt.JwtValidationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,4 +43,9 @@ public class GlobalExceptionAdvice {
         return ErrorApiResponse.of(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
 
+    @ExceptionHandler(TokenException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiResponse handleJwtValidationException(TokenException ex) {
+        return ErrorApiResponse.of(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+    }
 }
