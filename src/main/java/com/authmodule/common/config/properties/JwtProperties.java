@@ -21,4 +21,5 @@ public class JwtProperties {
         private long access;
         private long refresh;
     }
+    private String refreshTokenStore;
 }

@@ -5,4 +5,5 @@ import com.authmodule.user.adapter.in.web.response.LoginResponse;
 
 public interface LoginUseCase {
     LoginResponse login(LoginCommand command);
+    void logout(Long userId);
 }

@@ -41,7 +41,6 @@ dependencies {
 
     // jwt
     implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
@@ -50,9 +49,16 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'com.h2database:h2'
 
+    //redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
     // lombok
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
+
+    // actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
